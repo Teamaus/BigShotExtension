@@ -1,0 +1,17 @@
+{
+    "name": "ביגשוט",
+    "version": "1.0",
+    "description": "Adds a custom context menu item",
+    "manifest_version": 3,
+    "permissions": ["contextMenus","tabs","storage"],
+    "background": {
+      "service_worker": "contextMenu.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["https://*/*"],
+       
+        "js": ["content-script.js"]
+      }
+    ]
+  }
