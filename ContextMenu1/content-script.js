@@ -7,7 +7,7 @@ chrome.runtime.onMessage.addListener(
                   "from the extension");
     if (request.watchList){
         var elem = document.getElementsByClassName("pull-left")        
-        elem[0].innerHTML += JSON.stringify(request)
+      //  elem[0].innerHTML += JSON.stringify(request)
     }   
     else{
      document.title = request
@@ -17,7 +17,7 @@ chrome.runtime.onMessage.addListener(
 elem = document.getElementsByClassName("pull-left")
 if (elem)
 {
-    elem[0].addEventListener("click",(evt)=>document.body.style.backgroundColor = "red")
+ //   elem[0].addEventListener("click",(evt)=>document.body.style.backgroundColor = "red")
     
     
     

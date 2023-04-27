@@ -5,6 +5,38 @@ function init(){
       chrome.storage.local.set({"watchList":[]})
   }
 }
+function openSymbol(symbol){
+  let url = "https://bigshotchallenge.bigshot-station.com/dark/symbol?symbol="+symbol
+      
+  chrome.tabs.create({ url: url},(tab)=>
+  {
+    
+    chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, updatedTab) {
+        if (tabId === tab.id && changeInfo.status === "complete") {
+            //chrome.tabs.executeScript(tabId, {code: "document.title = 'New Title'"});
+            chrome.tabs.sendMessage(tabId,symbol)
+            
+            var obj = chrome.storage.local.get("watchList").then((result)=>
+            {
+              
+                result ={...result,watchList:[...result.watchList,linkText]}
+              chrome.storage.local.set(result)
+              chrome.tabs.sendMessage(tabId,result)
+              
+            }
+            )
+            
+        }
+      });
+    
+  });
+  // Get the current tab
+ 
+}
+chrome.commands.onCommand.addListener(function(command) {
+  console.log("COMMAND",command)
+});
+
 chrome.runtime.onInstalled.addListener(function() {
     init()
   
@@ -25,7 +57,12 @@ chrome.runtime.onInstalled.addListener(function() {
     
     
   });
-  
+  chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.openSymbol){
+        openSymbol(request.openSymbol)
+
+    }
+  })
   chrome.contextMenus.onClicked.addListener(function(info, tab) {
  
     if (info.menuItemId == "bigShotOpenTab_menuItem") {
