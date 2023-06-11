@@ -6,9 +6,9 @@ function startTrade(){
     chrome.runtime.sendMessage({startTrade:true}) 
 }
 document.addEventListener("DOMContentLoaded",()=>{
-    var btn = document.getElementById("btnStartTrade")
-    var btn2 = document.getElementById("btnDemoMode")
-    var btn3 = document.getElementById("btnChallangeMode")
+    var btnStartTrade = document.getElementById("btnStartTrade")
+    var btnDemo = document.getElementById("btnDemoMode")
+    var btnChallange = document.getElementById("btnChallangeMode")
 
     var symbol = document.getElementById("symbol")
     symbol.focus()
@@ -19,9 +19,9 @@ document.addEventListener("DOMContentLoaded",()=>{
     }
     )
     
-    btn.addEventListener("click",(evt)=>startTrade())
-    btn2.addEventListener("click",(evt)=> chrome.runtime.sendMessage({toggleMode:DEMO})  )
-    btn3.addEventListener("click",(evt)=> chrome.runtime.sendMessage({toggleMode:CHALLANGE})  )
+    btnStartTrade.addEventListener("click",(evt)=>startTrade())
+    btnDemo.addEventListener("click",(evt)=> chrome.runtime.sendMessage({toggleMode:DEMO})  )
+    btnChallange.addEventListener("click",(evt)=> chrome.runtime.sendMessage({toggleMode:CHALLANGE})  )
     
     
 }
