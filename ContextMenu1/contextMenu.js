@@ -41,6 +41,7 @@ function init(){
       clearStorage = false
       chrome.storage.local.set({"watchList":[]})
   }
+ 
 }
 function openTab(url,pinned){
   chrome.tabs.create({ url: url,pinned:pinned},(tab)=>
@@ -162,13 +163,14 @@ chrome.runtime.onInstalled.addListener(function() {
         openSymbol(request.openSymbol)
 
     }
-    if (request.getMode){
-        console.log("getMode")
-        chrome.runtime.sendMessage({mode:currentMode})
-    }
+   
     if (request.toggleMode){
-      
+      console.log("===>>>",request,"SENDER:",sender,"SENDRESPONSE",sendResponse)
       changeMode(request.toggleMode)
+      console.log("SendResponse",{ mode:request.toggleMode})
+     
+      chrome.runtime.sendMessage({ mode:request.toggleMode})
+      return true
     }
     if (request.startTrade){
       Menu_StartTrade(undefined)

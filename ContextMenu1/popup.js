@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     btnStartTrade.addEventListener("click",(evt)=>startTrade())
     btnDemo.addEventListener("click",(evt)=> chrome.runtime.sendMessage({toggleMode:DEMO})  )
     btnChallange.addEventListener("click",(evt)=> chrome.runtime.sendMessage({toggleMode:CHALLANGE})  )
-    
+    toggleMode("challange")
     
 }
 )
@@ -30,17 +30,14 @@ const CHALLANGE = "challange"
 const DEMO = "demo"
 
 let mode = CHALLANGE
+
 function toggleMode(mode){
-    
-  
-
-    chrome.runtime.sendMessage({toggleMode:mode})  
-
+          chrome.runtime.sendMessage({ toggleMode: mode });
 }
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.mode)
-            document.getElementById("btnToggleMode").innerHTML = request.mode
+            document.getElementById("mode").innerHTML = request.mode
 
 })
 
